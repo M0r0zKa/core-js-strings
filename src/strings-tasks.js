@@ -20,10 +20,7 @@
  *   getStringLength(undefined) => 0
  */
 function getStringLength(value) {
-  if (typeof value === 'string') {
-    return value.length;
-  }
-  return 0;
+  return typeof value === 'string' ? value.length : 0;
 }
 
 /**
@@ -89,8 +86,8 @@ function getFirstChar(value) {
  *   removeLeadingAndTrailingWhitespaces('cat ') => 'cat'
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.replace(/^[\s\t]+|[\s\t]+$/g, '');
 }
 
 /**
@@ -104,8 +101,8 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   removeLeadingWhitespaces('cat ') => 'cat '
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
-function removeLeadingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingWhitespaces(value) {
+  return value.trimStart();
 }
 
 /**
