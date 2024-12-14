@@ -206,8 +206,11 @@ function sumOfCodes(str) {
  *   startsWith('Hello World', 'World') => false
  *   startsWith('Hello World', 'Hello') => true
  */
-function startsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function startsWith(str, substr) {
+  if (typeof str !== 'string' || typeof substr !== 'string') {
+    return false;
+  }
+  return str.startsWith(substr);
 }
 
 /**
@@ -241,8 +244,24 @@ function endsWith(str, substr) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  if (
+    typeof minutes !== 'number' ||
+    typeof seconds !== 'number' ||
+    minutes < 0 ||
+    seconds < 0 ||
+    !Number.isInteger(minutes) ||
+    !Number.isInteger(seconds)
+  ) {
+    throw new Error(
+      'Invalid input: minutes and seconds must be non-negative integers.'
+    );
+  }
+
+  const mm = minutes.toString().padStart(2, '0');
+  const ss = seconds.toString().padStart(2, '0');
+
+  return `${mm}:${ss}`;
 }
 
 /**
@@ -255,8 +274,11 @@ function formatTime(/* minutes, seconds */) {
  *   reverseString('abcdef') => 'fedcba'
  *   reverseString('12345') => '54321'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Invalid input: expected a string.');
+  }
+  return [...str].reverse().join('');
 }
 
 /**
@@ -270,8 +292,11 @@ function reverseString(/* str */) {
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Invalid input: expected a string.');
+  }
+  return str.split('').reverse().join('');
 }
 
 /**
@@ -304,8 +329,12 @@ function containsSubstring(/* str, substring */) {
  *   countVowels('aEiOu') => 5
  *   countVowels('XYZ') => 1
  */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Invalid input: expected a string.');
+  }
+  const vowels = 'aeiouyAEIOUY';
+  return [...str].filter((char) => vowels.includes(char)).length;
 }
 
 /**
