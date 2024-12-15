@@ -87,7 +87,7 @@ function getFirstChar(value) {
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
  */
 function removeLeadingAndTrailingWhitespaces(value) {
-  return value.replace(/^[\s\t]+|[\s\t]+$/g, '');
+  return value.trim();
 }
 
 /**
@@ -153,11 +153,11 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  if (typeof str !== 'string' || typeof value !== 'string') {
-    throw new Error('Invalid input: both arguments should be strings.');
+  const index = str.indexOf(value);
+  if (index === -1) {
+    return str;
   }
-
-  return str.replace(value, '');
+  return str.slice(0, index) + str.slice(index + value.length);
 }
 
 /**
@@ -173,7 +173,11 @@ function removeFirstOccurrences(str, value) {
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeLastOccurrences(str, value) {
-  return str.replace(value, '');
+  const lastIndex = str.lastIndexOf(value);
+  if (lastIndex === -1) {
+    return str;
+  }
+  return str.slice(0, lastIndex) + str.slice(lastIndex + value.length);
 }
 
 /**
@@ -300,7 +304,7 @@ function orderAlphabetically(str) {
   if (typeof str !== 'string') {
     throw new Error('Invalid input: expected a string.');
   }
-  return str.split('').reverse().join('');
+  return str.split('').sort().join('');
 }
 
 /**
@@ -316,10 +320,6 @@ function orderAlphabetically(str) {
  *   containsSubstring('12345', '34') => true
  */
 function containsSubstring(str, substring) {
-  if (typeof str !== 'string' || typeof substring !== 'string') {
-    throw new Error('Invalid input: both arguments should be strings.');
-  }
-
   return str.includes(substring);
 }
 
