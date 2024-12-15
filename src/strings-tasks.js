@@ -469,8 +469,19 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  if (typeof value !== 'string') {
+    throw new Error('Invalid input: value must be a string.');
+  }
+
+  const templatePrefix = 'Hello, ';
+  const templateSuffix = '!';
+
+  if (value.startsWith(templatePrefix) && value.endsWith(templateSuffix)) {
+    return value.slice(templatePrefix.length, -templateSuffix.length);
+  }
+
+  throw new Error('Invalid template format.');
 }
 
 /**
@@ -484,8 +495,16 @@ function extractNameFromTemplate(/* value */) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Invalid input: str must be a string.');
+  }
+
+  if (str.startsWith('<') && str.endsWith('>')) {
+    return str.slice(1, -1);
+  }
+
+  throw new Error('Invalid tag format.');
 }
 
 /**
@@ -503,8 +522,12 @@ function unbracketTag(/* str */) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Invalid input: str must be a string.');
+  }
+
+  return str.split(';').map((email) => email.trim());
 }
 
 /**
@@ -523,8 +546,17 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Invalid input: str must be a string.');
+  }
+
+  return str.replace(/[A-Za-z]/g, (char) => {
+    const start = char <= 'Z' ? 65 : 97; // ASCII for 'A' or 'a'
+    return String.fromCharCode(
+      ((char.charCodeAt(0) - start + 13) % 26) + start
+    );
+  });
 }
 
 /**
@@ -551,8 +583,39 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  if (typeof value !== 'string') {
+    throw new Error('Invalid input: value must be a string.');
+  }
+
+  const suits = ['♣', '♦', '♥', '♠'];
+  const ranks = [
+    'A',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    'J',
+    'Q',
+    'K',
+  ];
+
+  const suit = value.slice(-1);
+  const rank = value.slice(0, -1);
+
+  const suitIndex = suits.indexOf(suit);
+  const rankIndex = ranks.indexOf(rank);
+
+  if (suitIndex === -1 || rankIndex === -1) {
+    throw new Error('Invalid card value.');
+  }
+
+  return suitIndex * ranks.length + rankIndex;
 }
 
 module.exports = {
