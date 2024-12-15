@@ -152,8 +152,12 @@ function repeatString(str, times) {
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  if (typeof str !== 'string' || typeof value !== 'string') {
+    throw new Error('Invalid input: both arguments should be strings.');
+  }
+
+  return str.replace(value, '');
 }
 
 /**
@@ -311,8 +315,12 @@ function orderAlphabetically(str) {
  *   containsSubstring('JavaScript is Fun', 'Python') => false
  *   containsSubstring('12345', '34') => true
  */
-function containsSubstring(/* str, substring */) {
-  throw new Error('Not implemented');
+function containsSubstring(str, substring) {
+  if (typeof str !== 'string' || typeof substring !== 'string') {
+    throw new Error('Invalid input: both arguments should be strings.');
+  }
+
+  return str.includes(substring);
 }
 
 /**
@@ -395,8 +403,15 @@ function findLongestWord(sentence) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Invalid input: expected a string.');
+  }
+
+  return str
+    .split(' ')
+    .map((word) => word.split('').reverse().join(''))
+    .join(' ');
 }
 
 /**
@@ -410,8 +425,17 @@ function reverseWords(/* str */) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  if (typeof str !== 'string') {
+    throw new Error('Invalid input: argument should be a string.');
+  }
+
+  return str
+    .split('')
+    .map((char) =>
+      char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase()
+    )
+    .join('');
 }
 
 /**
@@ -427,8 +451,12 @@ function invertCase(/* str */) {
  *   getStringFromTemplate('John','Doe') => 'Hello, John Doe!'
  *   getStringFromTemplate('Chuck','Norris') => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  if (typeof firstName !== 'string' || typeof lastName !== 'string') {
+    throw new Error('Invalid input: both arguments should be strings.');
+  }
+
+  return `Hello, ${firstName} ${lastName}!`;
 }
 
 /**
